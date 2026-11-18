@@ -209,6 +209,11 @@ class BlockchainRequestHandler(BaseHTTPRequestHandler):
         elif path == "/app.js":
             self._serve_file("static/app.js", "application/javascript; charset=utf-8")
             return
+        elif path.endswith(".md"):
+            clean_filename = os.path.basename(path)
+            if os.path.exists(clean_filename):
+                self._serve_file(clean_filename, "text/plain; charset=utf-8")
+                return
 
         # REST API Endpoints
         if path == "/api/chain":

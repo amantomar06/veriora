@@ -1,6 +1,6 @@
-# AuthentiChain PowerShell Runner
+# Veriora Protocol PowerShell Runner
 Write-Host "=======================================================================" -ForegroundColor Cyan
-Write-Host "         AuthentiChain: E-Commerce Product Authenticity Platform" -ForegroundColor Cyan
+Write-Host "         VERIORA: Enterprise Product Authenticity Blockchain" -ForegroundColor Cyan
 Write-Host "=======================================================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -49,3 +49,4 @@ switch ($choice) {
         Write-Host "Exiting."
     }
 }
+

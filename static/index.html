@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0f172a">
-  <title>AuthentiChain | Product Authenticity & Verification Network</title>
+  <title>Veriora | Enterprise Product Authenticity & Blockchain Protocol</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -12,16 +12,17 @@
   <!-- Top Navigation Header -->
   <header class="app-header">
     <div class="header-inner">
-      <a href="#" class="brand-wrapper" onclick="switchTab('verify'); return false;">
-        <div class="brand-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-        </div>
+      <a href="#" class="brand-wrapper" onclick="switchTab('home'); return false;">
+        <!-- Custom Veriora Geometric Emblem -->
+        <svg class="brand-logo-svg" width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="38" height="38" rx="11" fill="#0F172A"/>
+          <path d="M19 6L29 11.77V23.33L19 29.1L9 23.33V11.77L19 6Z" stroke="#38BDF8" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M19 11L25 14.5V21.5L19 25L13 21.5V14.5L19 11Z" fill="#2563EB" fill-opacity="0.25" stroke="#60A5FA" stroke-width="1.5"/>
+          <path d="M15.5 19L18 21.5L23 16.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <div class="brand-text">
-          <span>AuthentiChain</span>
-          <span class="brand-badge">Enterprise Ledger</span>
+          <span>VERIORA</span>
+          <span class="brand-badge">PROTOCOL</span>
         </div>
       </a>
 
@@ -38,7 +39,11 @@
   <!-- Desktop Navigation Tabs -->
   <nav class="nav-bar-desktop">
     <div class="nav-bar-inner">
-      <button class="tab-btn active" onclick="switchTab('verify')">
+      <button class="tab-btn active" onclick="switchTab('home')">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Overview</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('verify')">
         <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <span>Verify Product</span>
       </button>
@@ -65,9 +70,230 @@
   <main class="app-main">
 
     <!-- ====================================================================
+         TAB 0: LANDING PAGE (OVERVIEW & HERO)
+         ==================================================================== -->
+    <section id="tab-home" class="tab-content active">
+      
+      <!-- Hero Section -->
+      <div class="landing-hero">
+        <div class="hero-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Decentralized Ledger & AI Anomaly Detection</span>
+        </div>
+
+        <h1 class="hero-title">
+          The Cryptographic Standard for <span class="highlight">E-Commerce Product Authenticity</span>
+        </h1>
+
+        <p class="hero-description">
+          Veriora protects global supply chains by anchoring product provenance to an immutable SHA-256 blockchain. 
+          Enforce custody transfers through smart contracts, eliminate barcode cloning with AI transit velocity detection, and let consumers verify genuine items in seconds.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="switchTab('verify')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Verify a Product Now</span>
+          </button>
+          <button class="btn btn-secondary" onclick="switchTab('manufacturer')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Manufacturer Studio</span>
+          </button>
+          <button class="btn btn-secondary" onclick="switchTab('explorer')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <span>Live Block Explorer</span>
+          </button>
+        </div>
+
+        <!-- Interactive Quick Verification Bar -->
+        <div class="hero-widget-card">
+          <div class="hero-widget-header">
+            <span class="widget-label">Live On-Chain Verification Demo</span>
+            <span style="font-size: 0.75rem; color: var(--success); font-weight: 700;">● Network Online</span>
+          </div>
+
+          <div class="widget-input-row">
+            <div class="search-wrapper" style="flex: 1;">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="heroQuickInput" class="input-control search-input" placeholder="Paste Product ID (e.g. PRD-APPL-...) or pick below">
+            </div>
+            <button class="btn btn-accent" onclick="runHeroVerification()">
+              <span>Authenticate</span>
+            </button>
+          </div>
+
+          <div style="margin-top: 0.85rem;">
+            <span style="font-size: 0.75rem; color: var(--text-tertiary); font-weight: 600;">Instant Presets:</span>
+            <div class="chip-container" id="heroSampleChips" style="display: inline-flex; margin-left: 0.5rem;">
+              <!-- Seeded via JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Core Architectural Pillars -->
+      <div style="margin-bottom: 3.5rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h2 style="font-size: 1.85rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-main);">
+            Four Pillars of Zero-Trust Product Authentication
+          </h2>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0;">
+            How Veriora combines cryptography, state machines, and machine learning into a unified anti-counterfeit shield.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: #eff6ff; color: #2563eb;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="pillar-title">1. Origin Minting</h3>
+            <p class="pillar-text">
+              Authorized brand manufacturers mint genuine goods with asymmetric digital signatures and cryptographic checksums, sealing origin authenticity.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: #ecfdf5; color: #059669;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="13" x="1" y="5" rx="2"/><polygon points="17 8 20 8 23 11 23 18 17 18 17 8"/></svg>
+            </div>
+            <h3 class="pillar-title">2. Smart Custody</h3>
+            <p class="pillar-text">
+              Smart contracts enforce strict state transitions. Only the current verified custodian can authorize custody handovers across logistics hubs.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: #fffbeb; color: #d97706;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+            </div>
+            <h3 class="pillar-title">3. AI Anomaly Guard</h3>
+            <p class="pillar-text">
+              Multi-factor statistical inference models analyze serial Shannon entropy, detect cloned QR codes via transit velocity, and flag pricing anomalies.
+            </p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-icon-box" style="background: #f1f5f9; color: #0f172a;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <h3 class="pillar-title">4. Immutable Proof</h3>
+            <p class="pillar-text">
+              Proof-of-Work consensus anchors block headers with Merkle trees. Any attempt to modify transaction history breaks the cryptographic chain.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works Timeline Flow -->
+      <div style="margin-bottom: 3.5rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h2 style="font-size: 1.85rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-main);">
+            How the Provenance Pipeline Works
+          </h2>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0;">
+            A seamless, tamper-evident journey from raw factory assembly to the end consumer's hands.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <div class="flow-card">
+            <div class="flow-step-num">1</div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">Manufacturer Mints</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              Brand owner generates a Unique Product Identifier (UPI), attaches technical specs, signs with private key, and embeds into packaging QR code.
+            </p>
+          </div>
+
+          <div class="flow-card">
+            <div class="flow-step-num">2</div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">Logistics Handover</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              Freight carriers scan and sign custody checkpoints with GPS coordinates. Smart contracts verify ownership before accepting state change.
+            </p>
+          </div>
+
+          <div class="flow-card">
+            <div class="flow-step-num">3</div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">Retail Shelf Stock</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              Authorized retail partner accepts custody. Product state changes to <code>AT_RETAILER</code> or <code>SOLD</code> upon checkout.
+            </p>
+          </div>
+
+          <div class="flow-card">
+            <div class="flow-step-num">4</div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">Consumer Verification</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+              Customer scans QR code on packaging using any camera. Instantly verifies Genesis Block anchor, digital signature, and AI risk score.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industry Sectors Supported -->
+      <div style="margin-bottom: 3.5rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h2 style="font-size: 1.85rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-main);">
+            Engineered for High-Risk E-Commerce Categories
+          </h2>
+        </div>
+
+        <div class="grid-4">
+          <div class="industry-chip">
+            <div style="font-size: 1.75rem;">⌚</div>
+            <div class="industry-chip-title">Luxury & Fashion</div>
+            <div class="industry-chip-sub">High-value timepieces, designer apparel, and collector items</div>
+          </div>
+          <div class="industry-chip">
+            <div style="font-size: 1.75rem;">💊</div>
+            <div class="industry-chip-title">Pharmaceuticals</div>
+            <div class="industry-chip-sub">Life-saving medicines, vaccines, and healthcare supplies</div>
+          </div>
+          <div class="industry-chip">
+            <div style="font-size: 1.75rem;">📱</div>
+            <div class="industry-chip-title">Electronics</div>
+            <div class="industry-chip-sub">Smartphones, batteries, microchips, and authorized accessories</div>
+          </div>
+          <div class="industry-chip">
+            <div style="font-size: 1.75rem;">✈️</div>
+            <div class="industry-chip-title">Critical Industrial</div>
+            <div class="industry-chip-sub">Automotive components, aerospace hardware, and certified tools</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Network Telemetry Strip -->
+      <div class="card" style="background: #ffffff; border-color: var(--border-light); margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+          <div>
+            <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.05em;">Decentralized Ledger Telemetry</div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-top: 0.2rem;">Veriora Mainnet Node Status</div>
+          </div>
+          <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Block Height</div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: var(--accent);" id="landingBlockHeight">--</div>
+            </div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Consensus</div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: var(--text-main);">PoW (2 Zeros)</div>
+            </div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">Cryptographic Health</div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: var(--success);" id="landingHealth">100% VALID</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
          TAB 1: CONSUMER VERIFICATION
          ==================================================================== -->
-    <section id="tab-verify" class="tab-content active">
+    <section id="tab-verify" class="tab-content">
       <div class="grid-2">
         
         <!-- Left: Search Box & Sample Chips -->
@@ -534,7 +760,11 @@
        ==================================================================== -->
   <nav class="mobile-bottom-nav">
     <div class="mobile-nav-items">
-      <button class="mobile-nav-btn active" onclick="switchTab('verify')">
+      <button class="mobile-nav-btn active" onclick="switchTab('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="switchTab('verify')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <span>Verify</span>
       </button>
@@ -556,6 +786,31 @@
       </button>
     </div>
   </nav>
+
+  <!-- Professional Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="24" height="24" viewBox="0 0 38 38" fill="none">
+          <rect width="38" height="38" rx="10" fill="#0F172A"/>
+          <path d="M19 6L29 11.77V23.33L19 29.1L9 23.33V11.77L19 6Z" stroke="#38BDF8" stroke-width="2"/>
+          <path d="M15.5 19L18 21.5L23 16.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span>VERIORA™ PROTOCOL</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="/PROJECT_REPORT.md" class="footer-link" target="_blank">Project Report</a>
+        <a href="/ARCHITECTURE.md" class="footer-link" target="_blank">Architecture Spec</a>
+        <a href="/TESTING_GUIDE.md" class="footer-link" target="_blank">Test Cases</a>
+        <a href="/api/chain" class="footer-link" target="_blank">JSON Ledger API</a>
+      </div>
+
+      <div style="font-size: 0.8rem; color: var(--text-tertiary);">
+        &copy; 2026 Veriora Protocol. Built with SHA-256 Proof-of-Work & AI Anomaly Detection.
+      </div>
+    </div>
+  </footer>
 
   <script src="/app.js"></script>
 </body>

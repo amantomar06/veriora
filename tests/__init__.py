@@ -5,3 +5,4 @@ Fulfills Deliverables 4, 5, and 7:
 - Smart Contract Business Logic & RBAC
 - Testing: Valid transactions, invalid transactions, security checks, and tamper detection
 """
+

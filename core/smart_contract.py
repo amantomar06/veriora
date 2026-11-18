@@ -274,3 +274,4 @@ class ProductAuthenticityContract:
     def get_history(self, product_id: str) -> List[Dict[str, Any]]:
         """Retrieves complete chronological chain of custody for a product."""
         return self.product_history.get(product_id, [])
+

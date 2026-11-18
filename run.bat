@@ -1,9 +1,9 @@
 @echo off
-title AuthentiChain - E-Commerce Product Authenticity Blockchain
+title VERIORA - Enterprise Product Authenticity Blockchain
 setlocal enabledelayedexpansion
 
 echo =======================================================================
-echo          AuthentiChain: E-Commerce Product Authenticity Platform
+echo          VERIORA: Enterprise Product Authenticity Platform
 echo =======================================================================
 echo.
 

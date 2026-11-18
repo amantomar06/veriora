@@ -205,3 +205,4 @@ class AICounterfeitDetector:
             "risk_flags": flags,
             "ai_model_name": "AuthentiShield Anomaly & Provenance Classifier v2.1"
         }
+

@@ -132,3 +132,4 @@ def verify_product_id_checksum(product_id: str) -> bool:
     preliminary = "-".join(parts[:5])
     expected_checksum = sha256(preliminary)[:4].upper()
     return parts[5].upper() == expected_checksum
+

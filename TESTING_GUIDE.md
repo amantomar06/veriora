@@ -148,3 +148,4 @@ Open your browser to `http://localhost:8000`.
 5. Click **"🛡️ Restore Ledger Integrity"**.
 6. Observe:
    - The ledger immediately returns to `100% VALID (Green)`.
+

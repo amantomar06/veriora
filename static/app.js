@@ -98,18 +98,23 @@ async function fetchProducts() {
 
     // Populate quick test presets
     const pillsContainer = document.getElementById("quickSamplePills");
-    if (pillsContainer) {
-      pillsContainer.innerHTML = "";
+    const heroChipsContainer = document.getElementById("heroSampleChips");
 
+    function renderPresetChips(container) {
+      if (!container) return;
+      container.innerHTML = "";
       cachedProducts.forEach(p => {
         const chip = document.createElement("span");
         chip.className = "chip";
         chip.innerHTML = `<span>🏷️</span> ${p.brand}: ${p.product_id}`;
         chip.onclick = () => {
           document.getElementById("verifyProductId").value = p.product_id;
+          const heroInput = document.getElementById("heroQuickInput");
+          if (heroInput) heroInput.value = p.product_id;
+          switchTab('verify');
           verifyProduct();
         };
-        pillsContainer.appendChild(chip);
+        container.appendChild(chip);
       });
 
       // Add a counterfeit test sample
@@ -118,10 +123,16 @@ async function fetchProducts() {
       fakeChip.innerHTML = `<span>🚨</span> Test Fake ID (Unregistered)`;
       fakeChip.onclick = () => {
         document.getElementById("verifyProductId").value = "PRD-FAKE-000-000";
+        const heroInput = document.getElementById("heroQuickInput");
+        if (heroInput) heroInput.value = "PRD-FAKE-000-000";
+        switchTab('verify');
         verifyProduct();
       };
-      pillsContainer.appendChild(fakeChip);
+      container.appendChild(fakeChip);
     }
+
+    renderPresetChips(pillsContainer);
+    renderPresetChips(heroChipsContainer);
 
     // Populate Supply Chain Product dropdown
     const tfProductSelect = document.getElementById("tfProductId");
@@ -153,9 +164,12 @@ async function fetchBlockchainData(silent = false) {
     const blockCountLabel = document.getElementById("quickBlockCount");
     const metricBlocks = document.getElementById("metricBlocks");
     const metricHealth = document.getElementById("metricHealth");
+    const landingHeight = document.getElementById("landingBlockHeight");
+    const landingHealth = document.getElementById("landingHealth");
 
     if (blockCountLabel) blockCountLabel.textContent = `Blocks: ${data.length}`;
     if (metricBlocks) metricBlocks.textContent = data.length;
+    if (landingHeight) landingHeight.textContent = `#${data.length}`;
 
     if (data.is_valid) {
       if (pill) pill.className = "node-pill";
@@ -164,12 +178,20 @@ async function fetchBlockchainData(silent = false) {
         metricHealth.textContent = "100% VALID";
         metricHealth.style.color = "var(--success)";
       }
+      if (landingHealth) {
+        landingHealth.textContent = "100% VALID";
+        landingHealth.style.color = "var(--success)";
+      }
     } else {
       if (pill) pill.className = "node-pill tampered";
       if (statusText) statusText.textContent = `TAMPER DETECTED: Block #${data.faulty_block_index}`;
       if (metricHealth) {
         metricHealth.textContent = `CORRUPTED (Block #${data.faulty_block_index})`;
         metricHealth.style.color = "var(--danger)";
+      }
+      if (landingHealth) {
+        landingHealth.textContent = `CORRUPTED (Block #${data.faulty_block_index})`;
+        landingHealth.style.color = "var(--danger)";
       }
     }
 
@@ -230,6 +252,19 @@ function renderBlocks(chain, faultyIndex) {
     `;
     container.appendChild(card);
   });
+}
+
+// Hero Section Quick Verification
+function runHeroVerification() {
+  const input = document.getElementById("heroQuickInput");
+  const pid = (input ? input.value : "").trim();
+  if (!pid) {
+    alert("Please enter or pick a Unique Product Identifier (UPI).");
+    return;
+  }
+  document.getElementById("verifyProductId").value = pid;
+  switchTab("verify");
+  verifyProduct();
 }
 
 // Consumer Verification Action
