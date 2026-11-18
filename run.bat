@@ -7,18 +7,20 @@ echo          AuthentiChain: E-Commerce Product Authenticity Platform
 echo =======================================================================
 echo.
 
-:: Detect Python executable
+:: Detect Python executable (Prioritize real installed Python over Windows Store stub)
 set PYTHON_CMD=
-where python >nul 2>nul
-if %errorlevel% equ 0 (
-    set PYTHON_CMD=python
+if exist "%LOCALAPPDATA%\Programs\Python\Python313\python.exe" (
+    set PYTHON_CMD="%LOCALAPPDATA%\Programs\Python\Python313\python.exe"
+) else if exist "C:\Python313\python.exe" (
+    set PYTHON_CMD="C:\Python313\python.exe"
 ) else (
-    where py >nul 2>nul
+    py -3.13 --version >nul 2>nul
     if !errorlevel! equ 0 (
-        set PYTHON_CMD=py
+        set PYTHON_CMD=py -3.13
     ) else (
-        if exist "%LOCALAPPDATA%\Programs\Python\Python313\python.exe" (
-            set PYTHON_CMD="%LOCALAPPDATA%\Programs\Python\Python313\python.exe"
+        where python >nul 2>nul
+        if !errorlevel! equ 0 (
+            set PYTHON_CMD=python
         ) else (
             echo [ERROR] Python was not found in PATH or standard installation directory!
             pause
@@ -53,3 +55,4 @@ if "%opt%"=="1" (
 ) else (
     exit /b 0
 )
+
