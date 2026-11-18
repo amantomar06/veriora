@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuthentiChain | E-Commerce Product Authenticity Blockchain</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation & Node Status -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <span>🛡️ AuthentiChain</span>
+        <span class="badge">E-Commerce Authenticity Protocol</span>
+      </div>
+      <div class="node-status-bar">
+        <span id="chainStatusPill" class="status-pill">
+          <span style="font-size: 0.6rem;">●</span> Verifying Blockchain Integrity...
+        </span>
+        <span style="color: var(--text-muted); font-size: 0.85rem;" id="quickBlockCount">Blocks: --</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('verify')">🔍 Consumer Verification</button>
+    <button class="tab-btn" onclick="switchTab('manufacturer')">🏭 Manufacturer Studio</button>
+    <button class="tab-btn" onclick="switchTab('supplychain')">🚚 Supply Chain Custody</button>
+    <button class="tab-btn" onclick="switchTab('ai')">🤖 AI Counterfeit Risk Engine</button>
+    <button class="tab-btn" onclick="switchTab('explorer')">⛓️ Blockchain Explorer & Tamper Lab</button>
+  </div>
+
+  <!-- Main Content Area -->
+  <main>
+
+    <!-- TAB 1: CONSUMER VERIFICATION -->
+    <section id="tab-verify" class="tab-content active">
+      <div class="grid-2">
+        
+        <!-- Left: Search & Verification Inputs -->
+        <div class="card">
+          <h2>🔍 Verify Product Authenticity</h2>
+          <p class="desc">Enter a Unique Product ID or select a sample item to verify cryptographic authenticity on the blockchain ledger.</p>
+
+          <div class="form-group">
+            <label for="verifyProductId">Unique Product ID (UPI)</label>
+            <input type="text" id="verifyProductId" placeholder="e.g. PRD-APPL-ELE-8D8C49-92B948-8AA1">
+          </div>
+
+          <div style="margin-bottom: 1.25rem;">
+            <label>Quick Test Samples:</label>
+            <div class="pills-container" id="quickSamplePills">
+              <!-- Dynamically populated via JS -->
+              <span class="pill-item" onclick="loadSampleId('FAKE')">🚨 Test Fake ID (Tampered)</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%;" onclick="verifyProduct()">
+            <span>🛡️ Query Blockchain & AI Engine</span>
+          </button>
+        </div>
+
+        <!-- Right: Real-time QR Code Scanner / Generator Preview -->
+        <div class="card">
+          <h2>📱 Digital Product Tag & QR Code</h2>
+          <p class="desc">Cryptographically signed digital token embedded in the physical product packaging QR code.</p>
+
+          <div id="qrCodeContainer" class="qr-preview">
+            <div id="qrPlaceholder" style="padding: 2rem; text-align: center; color: #64748b; font-size: 0.85rem;">
+              Select or verify a product to view cryptographic QR tag
+            </div>
+          </div>
+          <div id="qrDetails" style="text-align: center; margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);"></div>
+        </div>
+
+      </div>
+
+      <!-- Verification Results Display -->
+      <div id="verificationResultSection" style="margin-top: 1.5rem; display: none;">
+        <div class="card">
+          <div id="verdictBanner" class="verdict-banner"></div>
+
+          <div class="grid-3" style="margin-top: 1rem;">
+            <!-- Specs -->
+            <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
+              <h3 style="font-size: 1rem; color: #818cf8; margin-bottom: 0.75rem;">📦 Product Specification</h3>
+              <div id="resProductDetails" style="font-size: 0.85rem; line-height: 1.8;"></div>
+            </div>
+
+            <!-- Cryptographic Proof -->
+            <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
+              <h3 style="font-size: 1rem; color: #34d399; margin-bottom: 0.75rem;">🔐 Cryptographic Ledger Proof</h3>
+              <div id="resCryptoProof" style="font-size: 0.85rem; line-height: 1.8; word-break: break-all;"></div>
+            </div>
+
+            <!-- AI Risk Score -->
+            <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
+              <h3 style="font-size: 1rem; color: #fbbf24; margin-bottom: 0.75rem;">🤖 AI Authenticity Assessment</h3>
+              <div id="resAiPrediction" style="font-size: 0.85rem; line-height: 1.8;"></div>
+            </div>
+          </div>
+
+          <!-- Chain of Custody Timeline -->
+          <div style="margin-top: 2rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span>⛓️ Provenance & Chain of Custody History</span>
+            </h3>
+            <div class="timeline" id="provenanceTimeline"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: MANUFACTURER STUDIO -->
+    <section id="tab-manufacturer" class="tab-content">
+      <div class="grid-2">
+        
+        <!-- Registration Form -->
+        <div class="card">
+          <h2>🏭 Register Genuine Product (Origin Minting)</h2>
+          <p class="desc">Only authorized brand manufacturers can mint genuine product records with asymmetric cryptographic signatures.</p>
+
+          <form id="productRegisterForm" onsubmit="handleProductRegistration(event)">
+            <div class="form-group">
+              <label for="mfrEntity">Manufacturer Identity & Keypair</label>
+              <select id="mfrEntity" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="prodName">Product Commercial Name</label>
+              <input type="text" id="prodName" required placeholder="e.g. Sony WH-1000XM5 Wireless Headphones">
+            </div>
+
+            <div class="grid-2" style="margin: 0; gap: 1rem;">
+              <div class="form-group">
+                <label for="prodBrand">Brand</label>
+                <input type="text" id="prodBrand" required placeholder="e.g. Sony">
+              </div>
+              <div class="form-group">
+                <label for="prodCategory">Category</label>
+                <input type="text" id="prodCategory" required placeholder="e.g. Audio">
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin: 0; gap: 1rem;">
+              <div class="form-group">
+                <label for="prodBatch">Production Batch Number</label>
+                <input type="text" id="prodBatch" required placeholder="e.g. BATCH-SNY-2026-X1">
+              </div>
+              <div class="form-group">
+                <label for="prodPrice">MSRP Retail Price ($ USD)</label>
+                <input type="number" step="0.01" id="prodPrice" required placeholder="399.00">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prodSpecs">Technical Specifications (JSON format)</label>
+              <textarea id="prodSpecs" rows="3">{"color": "Silver", "warranty_years": 2, "factory": "Tokyo Advanced Assembly Line"}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success" style="width: 100%;">
+              <span>✍️ Sign with Private Key & Mint to Blockchain</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Registration Result & Certificate -->
+        <div class="card">
+          <h2>📜 Product Registration Certificate</h2>
+          <p class="desc">Cryptographically verifiable Certificate of Origin with digital signature and block anchor.</p>
+
+          <div id="mfrSuccessBox" style="display: none; background: #0f172a; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <div style="color: #34d399; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem;">
+              ✅ Product Successfully Anchored to Block #<span id="certBlockIndex"></span>
+            </div>
+            <div style="font-size: 0.85rem; line-height: 1.8; color: #cbd5e1;">
+              <div><strong>Unique Product ID:</strong> <span id="certPid" style="color: #818cf8; font-family: monospace;"></span></div>
+              <div><strong>Transaction ID:</strong> <span id="certTxId" style="font-family: monospace;"></span></div>
+              <div><strong>Block Hash:</strong> <span id="certBlockHash" style="font-family: monospace; font-size: 0.75rem;"></span></div>
+              <div><strong>Digital Signature:</strong> <span id="certSignature" style="font-family: monospace; font-size: 0.75rem;"></span></div>
+            </div>
+
+            <div class="qr-preview" style="margin-top: 1.5rem;">
+              <div id="certQrSvg"></div>
+              <div class="qr-caption" id="certQrCaption"></div>
+            </div>
+          </div>
+
+          <div id="mfrEmptyState" style="text-align: center; color: var(--text-muted); padding: 3rem 1rem;">
+            Fill out the form on the left and submit to mint a product into the blockchain ledger.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 3: SUPPLY CHAIN CUSTODY -->
+    <section id="tab-supplychain" class="tab-content">
+      <div class="grid-2">
+        
+        <!-- Transfer Form -->
+        <div class="card">
+          <h2>🚚 Transfer Custody in Supply Chain</h2>
+          <p class="desc">Enforces smart contract ownership validation. Only the current verified custodian can authorize custody transfer.</p>
+
+          <form id="transferForm" onsubmit="handleCustodyTransfer(event)">
+            <div class="form-group">
+              <label for="tfProductId">Select Registered Product</label>
+              <select id="tfProductId" required onchange="updateTransferFormContext()"></select>
+            </div>
+
+            <div class="form-group">
+              <label>Current Verified Custodian</label>
+              <input type="text" id="tfCurrentOwnerDisplay" disabled style="opacity: 0.7; background: #1e293b;">
+            </div>
+
+            <div class="form-group">
+              <label for="tfSenderEntity">Signing Authority (Must Match Current Owner)</label>
+              <select id="tfSenderEntity" required></select>
+            </div>
+
+            <div class="form-group">
+              <label for="tfRecipientEntity">Transfer Custody To (Next Supply Chain Node)</label>
+              <select id="tfRecipientEntity" required></select>
+            </div>
+
+            <div class="grid-2" style="margin: 0; gap: 1rem;">
+              <div class="form-group">
+                <label for="tfNextStatus">Next Lifecycle State</label>
+                <select id="tfNextStatus" required>
+                  <option value="IN_TRANSIT">IN_TRANSIT (In Shipping/Logistics)</option>
+                  <option value="AT_DISTRIBUTOR">AT_DISTRIBUTOR (Warehouse Stock)</option>
+                  <option value="AT_RETAILER">AT_RETAILER (Store Shelf)</option>
+                  <option value="SOLD">SOLD (Purchased by Consumer)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="tfLocation">Checkpoint Location / GPS Facility</label>
+                <input type="text" id="tfLocation" required placeholder="e.g. Seattle Fulfillment Center">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <span>✍️ Sign Handover & Mine Block</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Transfer Status Log & Rules Explanation -->
+        <div class="card">
+          <h2>🛡️ Smart Contract Custody Rules</h2>
+          <p class="desc">How the blockchain smart contract prevents unauthorized inventory diversions:</p>
+
+          <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem; line-height: 1.7; color: #cbd5e1;">
+            <p><strong>Rule 1 - Cryptographic Non-Repudiation:</strong> The transaction is signed with the current custodian's private key. Third parties cannot forge custody changes.</p>
+            <p style="margin-top: 0.5rem;"><strong>Rule 2 - State Machine Compliance:</strong> Transitions must follow <code>REGISTERED &rarr; IN_TRANSIT &rarr; AT_RETAILER &rarr; SOLD</code>. Jumping states triggers a contract exception.</p>
+            <p style="margin-top: 0.5rem;"><strong>Rule 3 - Whitelist Authorization:</strong> Both sender and receiver must be registered nodes on the blockchain network.</p>
+          </div>
+
+          <div id="transferFeedback" style="margin-top: 1.5rem; display: none;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: AI COUNTERFEIT RISK ENGINE -->
+    <section id="tab-ai" class="tab-content">
+      <div class="grid-2">
+        
+        <!-- AI Test Workbench -->
+        <div class="card">
+          <h2>🤖 AI Counterfeit Risk Simulator</h2>
+          <p class="desc">Test the multi-factor machine learning anomaly detection engine against counterfeit scenarios.</p>
+
+          <div class="form-group">
+            <label for="aiTestProductId">Product Identifier to Evaluate</label>
+            <input type="text" id="aiTestProductId" value="PRD-FAKE-000-000">
+          </div>
+
+          <div class="grid-2" style="margin: 0; gap: 1rem;">
+            <div class="form-group">
+              <label for="aiTestBrand">Brand Benchmark</label>
+              <select id="aiTestBrand">
+                <option value="Apple">Apple (MSRP Baseline: $1199)</option>
+                <option value="Nike">Nike (MSRP Baseline: $180)</option>
+                <option value="Pfizer">Pfizer (MSRP Baseline: $45)</option>
+                <option value="Sony">Sony (MSRP Baseline: $399)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="aiTestPrice">Offered Street / Online Price ($ USD)</label>
+              <input type="number" step="0.01" id="aiTestPrice" value="39.99">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="aiTestLocation">Current Scan Checkpoint Location</label>
+            <input type="text" id="aiTestLocation" value="Tokyo, Japan">
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <label>Pre-configured AI Test Scenarios:</label>
+            <div class="pills-container">
+              <span class="pill-item" onclick="loadAiScenario('GENUINE')">✅ Authentic Luxury Item</span>
+              <span class="pill-item" onclick="loadAiScenario('PRICE_UNDERCUT')">⚠️ Extreme 85% Discount Counterfeit</span>
+              <span class="pill-item" onclick="loadAiScenario('CLONED_QR')">🚨 Cloned QR / Impossible Travel Speed</span>
+              <span class="pill-item" onclick="loadAiScenario('FORGED_SERIAL')">🚨 Low Entropy Forged Serial</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%;" onclick="runAiPrediction()">
+            <span>⚡ Run AI Anomaly Inference</span>
+          </button>
+        </div>
+
+        <!-- AI Inference Results -->
+        <div class="card">
+          <h2>📊 AI Detection Report & Feature Weights</h2>
+          <p class="desc">Model predictions based on packaging features, price anomalies, and geospatial velocity.</p>
+
+          <div id="aiResultCard" style="background: #0f172a; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <div style="text-align: center; color: var(--text-muted); padding: 2rem 0;">
+              Click "Run AI Anomaly Inference" to evaluate risk metrics.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 5: BLOCKCHAIN EXPLORER & TAMPER TEST LAB -->
+    <section id="tab-explorer" class="tab-content">
+      
+      <!-- Top Metrics Bar -->
+      <div class="grid-3" style="margin-top: 0;">
+        <div class="metric-box">
+          <div class="metric-label">Ledger Height</div>
+          <div class="metric-val" id="metricBlocks">--</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Proof-of-Work Target</div>
+          <div class="metric-val" id="metricDifficulty">2 Zeros</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Chain Cryptographic Health</div>
+          <div class="metric-val" id="metricHealth" style="color: #34d399;">100% VALID</div>
+        </div>
+      </div>
+
+      <!-- Live Block Visualizer -->
+      <div class="card" style="margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2>⛓️ Live Blockchain Ledger (Immutable Sequence)</h2>
+            <p class="desc" style="margin-bottom: 0;">Each block cryptographically seals transaction history with SHA-256 and Merkle roots.</p>
+          </div>
+          <button class="btn btn-outline" onclick="fetchBlockchainData()">🔄 Refresh Chain</button>
+        </div>
+
+        <div class="block-chain-container" id="blocksContainer">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Tamper Lab (Deliverable 7: Test valid vs invalid transactions and security checks) -->
+      <div class="card" style="margin-top: 1.5rem; border-color: #f59e0b;">
+        <h2 style="color: #fbbf24;">🧪 Tamper Demonstration Lab (Security Verification)</h2>
+        <p class="desc">
+          Test the immutable security of the blockchain! In a centralized database, an unauthorized admin can silently modify records.
+          In this educational lab, you can inject counterfeit data into a block and observe how the cryptographic hash chain immediately detects the corruption.
+        </p>
+
+        <div class="grid-2" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label for="tamperBlockSelect">Select Block to Attack</label>
+            <select id="tamperBlockSelect"></select>
+          </div>
+          <div class="form-group">
+            <label for="tamperPayloadText">Counterfeit Payload to Inject</label>
+            <input type="text" id="tamperPayloadText" value="FORGED_COUNTERFEIT_PRODUCT_DATA">
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+          <button class="btn btn-danger" onclick="executeTamperAttack()">
+            <span>⚠️ Inject Tampered Data (Simulate Fraud)</span>
+          </button>
+          <button class="btn btn-success" onclick="executeRestoreChain()">
+            <span>🛡️ Restore Ledger Integrity</span>
+          </button>
+        </div>
+
+        <div id="tamperStatusLog" style="margin-top: 1rem; display: none;"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
