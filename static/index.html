@@ -2,290 +2,396 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AuthentiChain | E-Commerce Product Authenticity Blockchain</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f172a">
+  <title>AuthentiChain | Product Authenticity & Verification Network</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <!-- Top Navigation & Node Status -->
-  <header>
-    <div class="header-container">
-      <div class="brand">
-        <span>🛡️ AuthentiChain</span>
-        <span class="badge">E-Commerce Authenticity Protocol</span>
-      </div>
-      <div class="node-status-bar">
-        <span id="chainStatusPill" class="status-pill">
-          <span style="font-size: 0.6rem;">●</span> Verifying Blockchain Integrity...
-        </span>
-        <span style="color: var(--text-muted); font-size: 0.85rem;" id="quickBlockCount">Blocks: --</span>
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="#" class="brand-wrapper" onclick="switchTab('verify'); return false;">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span>AuthentiChain</span>
+          <span class="brand-badge">Enterprise Ledger</span>
+        </div>
+      </a>
+
+      <div class="header-status">
+        <div id="chainStatusPill" class="node-pill">
+          <span class="status-dot"></span>
+          <span id="chainStatusText">Verifying Ledger...</span>
+        </div>
+        <span class="blocks-count" style="font-size: 0.82rem; color: var(--text-secondary); font-family: var(--font-mono);" id="quickBlockCount">Blocks: --</span>
       </div>
     </div>
   </header>
 
-  <!-- Navigation Tabs -->
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('verify')">🔍 Consumer Verification</button>
-    <button class="tab-btn" onclick="switchTab('manufacturer')">🏭 Manufacturer Studio</button>
-    <button class="tab-btn" onclick="switchTab('supplychain')">🚚 Supply Chain Custody</button>
-    <button class="tab-btn" onclick="switchTab('ai')">🤖 AI Counterfeit Risk Engine</button>
-    <button class="tab-btn" onclick="switchTab('explorer')">⛓️ Blockchain Explorer & Tamper Lab</button>
-  </div>
+  <!-- Desktop Navigation Tabs -->
+  <nav class="nav-bar-desktop">
+    <div class="nav-bar-inner">
+      <button class="tab-btn active" onclick="switchTab('verify')">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span>Verify Product</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('manufacturer')">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+        <span>Manufacturer Studio</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('supplychain')">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="16" height="13" x="1" y="5" rx="2"/><polygon points="17 8 20 8 23 11 23 18 17 18 17 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Supply Chain Custody</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('ai')">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>AI Risk Engine</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('explorer')">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+        <span>Blockchain Explorer & Lab</span>
+      </button>
+    </div>
+  </nav>
 
-  <!-- Main Content Area -->
-  <main>
+  <!-- Main Content Container -->
+  <main class="app-main">
 
-    <!-- TAB 1: CONSUMER VERIFICATION -->
+    <!-- ====================================================================
+         TAB 1: CONSUMER VERIFICATION
+         ==================================================================== -->
     <section id="tab-verify" class="tab-content active">
       <div class="grid-2">
         
-        <!-- Left: Search & Verification Inputs -->
+        <!-- Left: Search Box & Sample Chips -->
         <div class="card">
-          <h2>🔍 Verify Product Authenticity</h2>
-          <p class="desc">Enter a Unique Product ID or select a sample item to verify cryptographic authenticity on the blockchain ledger.</p>
-
-          <div class="form-group">
-            <label for="verifyProductId">Unique Product ID (UPI)</label>
-            <input type="text" id="verifyProductId" placeholder="e.g. PRD-APPL-ELE-8D8C49-92B948-8AA1">
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              Verify Product Authenticity
+            </h2>
+            <p class="card-subtitle">Scan or query the immutable decentralized ledger to authenticate physical product origin.</p>
           </div>
 
-          <div style="margin-bottom: 1.25rem;">
-            <label>Quick Test Samples:</label>
-            <div class="pills-container" id="quickSamplePills">
-              <!-- Dynamically populated via JS -->
-              <span class="pill-item" onclick="loadSampleId('FAKE')">🚨 Test Fake ID (Tampered)</span>
+          <div class="form-group">
+            <label class="form-label" for="verifyProductId">Unique Product Identifier (UPI)</label>
+            <div class="search-wrapper">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="verifyProductId" class="input-control search-input" placeholder="e.g. PRD-APPL-ELE-8D8C49-92B948-8AA1">
             </div>
           </div>
 
-          <button class="btn btn-primary" style="width: 100%;" onclick="verifyProduct()">
-            <span>🛡️ Query Blockchain & AI Engine</span>
+          <div class="form-group">
+            <label class="form-label">Quick Verification Presets</label>
+            <div class="chip-container" id="quickSamplePills">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" onclick="verifyProduct()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>Authenticate on Blockchain</span>
           </button>
         </div>
 
-        <!-- Right: Real-time QR Code Scanner / Generator Preview -->
-        <div class="card">
-          <h2>📱 Digital Product Tag & QR Code</h2>
-          <p class="desc">Cryptographically signed digital token embedded in the physical product packaging QR code.</p>
+        <!-- Right: Digital QR Product Tag Preview -->
+        <div class="qr-tag-card">
+          <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01M17 7h.01M7 17h.01M17 17h.01"/></svg>
+            Cryptographic Product Tag
+          </h2>
+          <p class="card-subtitle">Digital tag linked to on-chain state and physical product packaging.</p>
 
-          <div id="qrCodeContainer" class="qr-preview">
-            <div id="qrPlaceholder" style="padding: 2rem; text-align: center; color: #64748b; font-size: 0.85rem;">
+          <div id="qrCodeContainer" class="qr-box">
+            <div id="qrPlaceholder" style="padding: 2.5rem 1.5rem; text-align: center; color: var(--text-tertiary); font-size: 0.85rem;">
               Select or verify a product to view cryptographic QR tag
             </div>
           </div>
-          <div id="qrDetails" style="text-align: center; margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);"></div>
+          <div id="qrDetails" class="qr-caption"></div>
         </div>
 
       </div>
 
-      <!-- Verification Results Display -->
-      <div id="verificationResultSection" style="margin-top: 1.5rem; display: none;">
-        <div class="card">
-          <div id="verdictBanner" class="verdict-banner"></div>
+      <!-- Result: Digital Product Passport Card (Smartphone & Desktop) -->
+      <div id="verificationResultSection" style="display: none;">
+        <div class="passport-card">
+          
+          <!-- Hero Verdict Banner -->
+          <div id="verdictBanner" class="passport-hero"></div>
 
-          <div class="grid-3" style="margin-top: 1rem;">
-            <!-- Specs -->
-            <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
-              <h3 style="font-size: 1rem; color: #818cf8; margin-bottom: 0.75rem;">📦 Product Specification</h3>
-              <div id="resProductDetails" style="font-size: 0.85rem; line-height: 1.8;"></div>
+          <div class="passport-body">
+            <div class="grid-3">
+              
+              <!-- Product Specifications -->
+              <div class="data-group">
+                <div class="data-group-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  Product Specifications
+                </div>
+                <table class="data-table" id="resProductDetails"></table>
+              </div>
+
+              <!-- Cryptographic Ledger Proof -->
+              <div class="data-group">
+                <div class="data-group-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Cryptographic Ledger Proof
+                </div>
+                <table class="data-table" id="resCryptoProof"></table>
+              </div>
+
+              <!-- AI Multi-factor Assessment -->
+              <div class="data-group">
+                <div class="data-group-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+                  AI Anomaly Detection
+                </div>
+                <div id="resAiPrediction"></div>
+              </div>
+
             </div>
 
-            <!-- Cryptographic Proof -->
-            <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
-              <h3 style="font-size: 1rem; color: #34d399; margin-bottom: 0.75rem;">🔐 Cryptographic Ledger Proof</h3>
-              <div id="resCryptoProof" style="font-size: 0.85rem; line-height: 1.8; word-break: break-all;"></div>
+            <!-- Provenance & Custody Timeline -->
+            <div style="margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
+              <div class="data-group-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Provenance & Chain of Custody Journey
+              </div>
+              <div class="timeline" id="provenanceTimeline"></div>
             </div>
 
-            <!-- AI Risk Score -->
-            <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
-              <h3 style="font-size: 1rem; color: #fbbf24; margin-bottom: 0.75rem;">🤖 AI Authenticity Assessment</h3>
-              <div id="resAiPrediction" style="font-size: 0.85rem; line-height: 1.8;"></div>
-            </div>
           </div>
-
-          <!-- Chain of Custody Timeline -->
-          <div style="margin-top: 2rem;">
-            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-              <span>⛓️ Provenance & Chain of Custody History</span>
-            </h3>
-            <div class="timeline" id="provenanceTimeline"></div>
-          </div>
-
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: MANUFACTURER STUDIO -->
+    <!-- ====================================================================
+         TAB 2: MANUFACTURER STUDIO
+         ==================================================================== -->
     <section id="tab-manufacturer" class="tab-content">
       <div class="grid-2">
         
         <!-- Registration Form -->
         <div class="card">
-          <h2>🏭 Register Genuine Product (Origin Minting)</h2>
-          <p class="desc">Only authorized brand manufacturers can mint genuine product records with asymmetric cryptographic signatures.</p>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/></svg>
+              Register Genuine Product (Origin Mint)
+            </h2>
+            <p class="card-subtitle">Digitally sign with brand manufacturer private key and anchor into the genesis ledger.</p>
+          </div>
 
           <form id="productRegisterForm" onsubmit="handleProductRegistration(event)">
             <div class="form-group">
-              <label for="mfrEntity">Manufacturer Identity & Keypair</label>
-              <select id="mfrEntity" required></select>
+              <label class="form-label" for="mfrEntity">Manufacturer Identity & Keypair</label>
+              <select id="mfrEntity" class="input-control" required></select>
             </div>
 
             <div class="form-group">
-              <label for="prodName">Product Commercial Name</label>
-              <input type="text" id="prodName" required placeholder="e.g. Sony WH-1000XM5 Wireless Headphones">
+              <label class="form-label" for="prodName">Commercial Product Name</label>
+              <input type="text" id="prodName" class="input-control" required placeholder="e.g. Sony WH-1000XM5 Wireless Headphones">
             </div>
 
             <div class="grid-2" style="margin: 0; gap: 1rem;">
               <div class="form-group">
-                <label for="prodBrand">Brand</label>
-                <input type="text" id="prodBrand" required placeholder="e.g. Sony">
+                <label class="form-label" for="prodBrand">Brand</label>
+                <input type="text" id="prodBrand" class="input-control" required placeholder="e.g. Sony">
               </div>
               <div class="form-group">
-                <label for="prodCategory">Category</label>
-                <input type="text" id="prodCategory" required placeholder="e.g. Audio">
+                <label class="form-label" for="prodCategory">Category</label>
+                <input type="text" id="prodCategory" class="input-control" required placeholder="e.g. Audio">
               </div>
             </div>
 
             <div class="grid-2" style="margin: 0; gap: 1rem;">
               <div class="form-group">
-                <label for="prodBatch">Production Batch Number</label>
-                <input type="text" id="prodBatch" required placeholder="e.g. BATCH-SNY-2026-X1">
+                <label class="form-label" for="prodBatch">Production Batch Number</label>
+                <input type="text" id="prodBatch" class="input-control" required placeholder="e.g. BATCH-SNY-2026-X1">
               </div>
               <div class="form-group">
-                <label for="prodPrice">MSRP Retail Price ($ USD)</label>
-                <input type="number" step="0.01" id="prodPrice" required placeholder="399.00">
+                <label class="form-label" for="prodPrice">MSRP Retail Price ($ USD)</label>
+                <input type="number" step="0.01" id="prodPrice" class="input-control" required placeholder="399.00">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="prodSpecs">Technical Specifications (JSON format)</label>
-              <textarea id="prodSpecs" rows="3">{"color": "Silver", "warranty_years": 2, "factory": "Tokyo Advanced Assembly Line"}</textarea>
+              <label class="form-label" for="prodSpecs">Technical Specifications (JSON format)</label>
+              <textarea id="prodSpecs" class="input-control font-mono" rows="3">{"color": "Silver", "warranty_years": 2, "factory": "Tokyo Advanced Assembly Line"}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-success" style="width: 100%;">
-              <span>✍️ Sign with Private Key & Mint to Blockchain</span>
+            <button type="submit" class="btn btn-primary btn-block">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Sign with Private Key & Mint Block</span>
             </button>
           </form>
         </div>
 
-        <!-- Registration Result & Certificate -->
+        <!-- Certificate of Origin Card -->
         <div class="card">
-          <h2>📜 Product Registration Certificate</h2>
-          <p class="desc">Cryptographically verifiable Certificate of Origin with digital signature and block anchor.</p>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Certificate of Authenticity
+            </h2>
+            <p class="card-subtitle">Verifiable proof of origin issued upon blockchain block confirmation.</p>
+          </div>
 
-          <div id="mfrSuccessBox" style="display: none; background: #0f172a; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
-            <div style="color: #34d399; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem;">
-              ✅ Product Successfully Anchored to Block #<span id="certBlockIndex"></span>
-            </div>
-            <div style="font-size: 0.85rem; line-height: 1.8; color: #cbd5e1;">
-              <div><strong>Unique Product ID:</strong> <span id="certPid" style="color: #818cf8; font-family: monospace;"></span></div>
-              <div><strong>Transaction ID:</strong> <span id="certTxId" style="font-family: monospace;"></span></div>
-              <div><strong>Block Hash:</strong> <span id="certBlockHash" style="font-family: monospace; font-size: 0.75rem;"></span></div>
-              <div><strong>Digital Signature:</strong> <span id="certSignature" style="font-family: monospace; font-size: 0.75rem;"></span></div>
+          <div id="mfrSuccessBox" style="display: none;">
+            <div style="background: var(--success-bg); border: 1px solid var(--success-border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--success-text); font-weight: 700;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Product Anchored to Block #<span id="certBlockIndex"></span></span>
+              </div>
             </div>
 
-            <div class="qr-preview" style="margin-top: 1.5rem;">
+            <table class="data-table">
+              <tr>
+                <td class="label-cell">Product ID (UPI)</td>
+                <td class="value-cell font-mono" id="certPid"></td>
+              </tr>
+              <tr>
+                <td class="label-cell">Transaction ID</td>
+                <td class="value-cell font-mono" id="certTxId"></td>
+              </tr>
+              <tr>
+                <td class="label-cell">Block Hash</td>
+                <td class="value-cell font-mono" id="certBlockHash"></td>
+              </tr>
+              <tr>
+                <td class="label-cell">Digital Signature</td>
+                <td class="value-cell font-mono" id="certSignature"></td>
+              </tr>
+            </table>
+
+            <div class="qr-box" style="margin-top: 1.5rem; text-align: center;">
               <div id="certQrSvg"></div>
               <div class="qr-caption" id="certQrCaption"></div>
             </div>
           </div>
 
-          <div id="mfrEmptyState" style="text-align: center; color: var(--text-muted); padding: 3rem 1rem;">
-            Fill out the form on the left and submit to mint a product into the blockchain ledger.
+          <div id="mfrEmptyState" style="text-align: center; color: var(--text-tertiary); padding: 4rem 1rem;">
+            Submit a product on the left to mint and view the cryptographic Certificate of Authenticity.
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- TAB 3: SUPPLY CHAIN CUSTODY -->
+    <!-- ====================================================================
+         TAB 3: SUPPLY CHAIN CUSTODY
+         ==================================================================== -->
     <section id="tab-supplychain" class="tab-content">
       <div class="grid-2">
         
         <!-- Transfer Form -->
         <div class="card">
-          <h2>🚚 Transfer Custody in Supply Chain</h2>
-          <p class="desc">Enforces smart contract ownership validation. Only the current verified custodian can authorize custody transfer.</p>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="13" x="1" y="5" rx="2"/><polygon points="17 8 20 8 23 11 23 18 17 18 17 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Transfer Custody Checkpoint
+            </h2>
+            <p class="card-subtitle">Enforces smart contract rule: only current verified custodian can authorize custody transfer.</p>
+          </div>
 
           <form id="transferForm" onsubmit="handleCustodyTransfer(event)">
             <div class="form-group">
-              <label for="tfProductId">Select Registered Product</label>
-              <select id="tfProductId" required onchange="updateTransferFormContext()"></select>
+              <label class="form-label" for="tfProductId">Select Registered Product</label>
+              <select id="tfProductId" class="input-control" required onchange="updateTransferFormContext()"></select>
             </div>
 
             <div class="form-group">
-              <label>Current Verified Custodian</label>
-              <input type="text" id="tfCurrentOwnerDisplay" disabled style="opacity: 0.7; background: #1e293b;">
+              <label class="form-label">Current Verified Custodian</label>
+              <input type="text" id="tfCurrentOwnerDisplay" class="input-control" disabled style="background: var(--bg-subtle);">
             </div>
 
             <div class="form-group">
-              <label for="tfSenderEntity">Signing Authority (Must Match Current Owner)</label>
-              <select id="tfSenderEntity" required></select>
+              <label class="form-label" for="tfSenderEntity">Signing Authority (Must Match Current Owner)</label>
+              <select id="tfSenderEntity" class="input-control" required></select>
             </div>
 
             <div class="form-group">
-              <label for="tfRecipientEntity">Transfer Custody To (Next Supply Chain Node)</label>
-              <select id="tfRecipientEntity" required></select>
+              <label class="form-label" for="tfRecipientEntity">Transfer Custody To</label>
+              <select id="tfRecipientEntity" class="input-control" required></select>
             </div>
 
             <div class="grid-2" style="margin: 0; gap: 1rem;">
               <div class="form-group">
-                <label for="tfNextStatus">Next Lifecycle State</label>
-                <select id="tfNextStatus" required>
-                  <option value="IN_TRANSIT">IN_TRANSIT (In Shipping/Logistics)</option>
-                  <option value="AT_DISTRIBUTOR">AT_DISTRIBUTOR (Warehouse Stock)</option>
+                <label class="form-label" for="tfNextStatus">Next Lifecycle State</label>
+                <select id="tfNextStatus" class="input-control" required>
+                  <option value="IN_TRANSIT">IN_TRANSIT (In Logistics)</option>
+                  <option value="AT_DISTRIBUTOR">AT_DISTRIBUTOR (Warehouse)</option>
                   <option value="AT_RETAILER">AT_RETAILER (Store Shelf)</option>
-                  <option value="SOLD">SOLD (Purchased by Consumer)</option>
+                  <option value="SOLD">SOLD (Consumer Purchase)</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="tfLocation">Checkpoint Location / GPS Facility</label>
-                <input type="text" id="tfLocation" required placeholder="e.g. Seattle Fulfillment Center">
+                <label class="form-label" for="tfLocation">Checkpoint Location / Facility</label>
+                <input type="text" id="tfLocation" class="input-control" required placeholder="e.g. Seattle Regional Depot">
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;">
-              <span>✍️ Sign Handover & Mine Block</span>
+            <button type="submit" class="btn btn-primary btn-block">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              <span>Authorize Handover & Mine Block</span>
             </button>
           </form>
         </div>
 
-        <!-- Transfer Status Log & Rules Explanation -->
+        <!-- Smart Contract Rules Card -->
         <div class="card">
-          <h2>🛡️ Smart Contract Custody Rules</h2>
-          <p class="desc">How the blockchain smart contract prevents unauthorized inventory diversions:</p>
-
-          <div style="background: #0f172a; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem; line-height: 1.7; color: #cbd5e1;">
-            <p><strong>Rule 1 - Cryptographic Non-Repudiation:</strong> The transaction is signed with the current custodian's private key. Third parties cannot forge custody changes.</p>
-            <p style="margin-top: 0.5rem;"><strong>Rule 2 - State Machine Compliance:</strong> Transitions must follow <code>REGISTERED &rarr; IN_TRANSIT &rarr; AT_RETAILER &rarr; SOLD</code>. Jumping states triggers a contract exception.</p>
-            <p style="margin-top: 0.5rem;"><strong>Rule 3 - Whitelist Authorization:</strong> Both sender and receiver must be registered nodes on the blockchain network.</p>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Smart Contract Enforced Rules
+            </h2>
+            <p class="card-subtitle">Programmable verification preventing unauthorized diversion or inventory theft.</p>
           </div>
 
-          <div id="transferFeedback" style="margin-top: 1.5rem; display: none;"></div>
+          <div style="background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 1.25rem; font-size: 0.85rem; line-height: 1.8;">
+            <p><strong>Rule 1 - Non-Repudiation:</strong> Handover requires an asymmetric cryptographic signature from the private key of the current recorded custodian.</p>
+            <p style="margin-top: 0.5rem;"><strong>Rule 2 - State Machine Compliance:</strong> Transitions must progress sequentially: <code>REGISTERED &rarr; IN_TRANSIT &rarr; AT_RETAILER &rarr; SOLD</code>.</p>
+            <p style="margin-top: 0.5rem;"><strong>Rule 3 - Node Whitelisting:</strong> Both sending and receiving parties must be verified identities on the blockchain network.</p>
+          </div>
+
+          <div id="transferFeedback" style="margin-top: 1.25rem; display: none;"></div>
         </div>
 
       </div>
     </section>
 
-    <!-- TAB 4: AI COUNTERFEIT RISK ENGINE -->
+    <!-- ====================================================================
+         TAB 4: AI COUNTERFEIT RISK ENGINE
+         ==================================================================== -->
     <section id="tab-ai" class="tab-content">
       <div class="grid-2">
         
-        <!-- AI Test Workbench -->
+        <!-- Workbench Form -->
         <div class="card">
-          <h2>🤖 AI Counterfeit Risk Simulator</h2>
-          <p class="desc">Test the multi-factor machine learning anomaly detection engine against counterfeit scenarios.</p>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+              AI Counterfeit Risk Simulator
+            </h2>
+            <p class="card-subtitle">Evaluate multi-factor statistical anomaly patterns against live market and telemetry inputs.</p>
+          </div>
 
           <div class="form-group">
-            <label for="aiTestProductId">Product Identifier to Evaluate</label>
-            <input type="text" id="aiTestProductId" value="PRD-FAKE-000-000">
+            <label class="form-label" for="aiTestProductId">Product Identifier to Evaluate</label>
+            <input type="text" id="aiTestProductId" class="input-control font-mono" value="PRD-FAKE-000-000">
           </div>
 
           <div class="grid-2" style="margin: 0; gap: 1rem;">
             <div class="form-group">
-              <label for="aiTestBrand">Brand Benchmark</label>
-              <select id="aiTestBrand">
+              <label class="form-label" for="aiTestBrand">Brand Benchmark</label>
+              <select id="aiTestBrand" class="input-control">
                 <option value="Apple">Apple (MSRP Baseline: $1199)</option>
                 <option value="Nike">Nike (MSRP Baseline: $180)</option>
                 <option value="Pfizer">Pfizer (MSRP Baseline: $45)</option>
@@ -293,39 +399,45 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="aiTestPrice">Offered Street / Online Price ($ USD)</label>
-              <input type="number" step="0.01" id="aiTestPrice" value="39.99">
+              <label class="form-label" for="aiTestPrice">Offered Street / Online Price ($ USD)</label>
+              <input type="number" step="0.01" id="aiTestPrice" class="input-control" value="39.99">
             </div>
           </div>
 
           <div class="form-group">
-            <label for="aiTestLocation">Current Scan Checkpoint Location</label>
-            <input type="text" id="aiTestLocation" value="Tokyo, Japan">
+            <label class="form-label" for="aiTestLocation">Current Scan Checkpoint Location</label>
+            <input type="text" id="aiTestLocation" class="input-control" value="Tokyo, Japan">
           </div>
 
-          <div style="margin-bottom: 1rem;">
-            <label>Pre-configured AI Test Scenarios:</label>
-            <div class="pills-container">
-              <span class="pill-item" onclick="loadAiScenario('GENUINE')">✅ Authentic Luxury Item</span>
-              <span class="pill-item" onclick="loadAiScenario('PRICE_UNDERCUT')">⚠️ Extreme 85% Discount Counterfeit</span>
-              <span class="pill-item" onclick="loadAiScenario('CLONED_QR')">🚨 Cloned QR / Impossible Travel Speed</span>
-              <span class="pill-item" onclick="loadAiScenario('FORGED_SERIAL')">🚨 Low Entropy Forged Serial</span>
+          <div class="form-group">
+            <label class="form-label">Pre-configured Attack Scenarios</label>
+            <div class="chip-container">
+              <span class="chip" onclick="loadAiScenario('GENUINE')">Genuine Luxury Item</span>
+              <span class="chip danger" onclick="loadAiScenario('PRICE_UNDERCUT')">85% Discount Counterfeit</span>
+              <span class="chip danger" onclick="loadAiScenario('CLONED_QR')">Cloned QR (Impossible Travel)</span>
+              <span class="chip danger" onclick="loadAiScenario('FORGED_SERIAL')">Low Entropy Synthetic Serial</span>
             </div>
           </div>
 
-          <button class="btn btn-primary" style="width: 100%;" onclick="runAiPrediction()">
-            <span>⚡ Run AI Anomaly Inference</span>
+          <button class="btn btn-primary btn-block" onclick="runAiPrediction()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Run Multi-Factor AI Inference</span>
           </button>
         </div>
 
-        <!-- AI Inference Results -->
+        <!-- AI Inference Report -->
         <div class="card">
-          <h2>📊 AI Detection Report & Feature Weights</h2>
-          <p class="desc">Model predictions based on packaging features, price anomalies, and geospatial velocity.</p>
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              AI Decision & Feature Breakdown
+            </h2>
+            <p class="card-subtitle">Probabilistic classification combining serial entropy, velocity, and MSRP deviation.</p>
+          </div>
 
-          <div id="aiResultCard" style="background: #0f172a; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
-            <div style="text-align: center; color: var(--text-muted); padding: 2rem 0;">
-              Click "Run AI Anomaly Inference" to evaluate risk metrics.
+          <div id="aiResultCard">
+            <div style="text-align: center; color: var(--text-tertiary); padding: 3rem 1rem;">
+              Click "Run Multi-Factor AI Inference" to inspect risk metrics.
             </div>
           </div>
         </div>
@@ -333,65 +445,80 @@
       </div>
     </section>
 
-    <!-- TAB 5: BLOCKCHAIN EXPLORER & TAMPER TEST LAB -->
+    <!-- ====================================================================
+         TAB 5: BLOCKCHAIN EXPLORER & TAMPER TEST LAB
+         ==================================================================== -->
     <section id="tab-explorer" class="tab-content">
       
-      <!-- Top Metrics Bar -->
-      <div class="grid-3" style="margin-top: 0;">
-        <div class="metric-box">
-          <div class="metric-label">Ledger Height</div>
-          <div class="metric-val" id="metricBlocks">--</div>
+      <!-- Metrics Tile Bar -->
+      <div class="metric-grid">
+        <div class="metric-tile">
+          <div class="metric-tile-val" id="metricBlocks">--</div>
+          <div class="metric-tile-lbl">Ledger Height (Blocks)</div>
         </div>
-        <div class="metric-box">
-          <div class="metric-label">Proof-of-Work Target</div>
-          <div class="metric-val" id="metricDifficulty">2 Zeros</div>
+        <div class="metric-tile">
+          <div class="metric-tile-val">2 Leading Zeros</div>
+          <div class="metric-tile-lbl">PoW Mining Target</div>
         </div>
-        <div class="metric-box">
-          <div class="metric-label">Chain Cryptographic Health</div>
-          <div class="metric-val" id="metricHealth" style="color: #34d399;">100% VALID</div>
+        <div class="metric-tile">
+          <div class="metric-tile-val" id="metricHealth" style="color: var(--success);">100% VALID</div>
+          <div class="metric-tile-lbl">Cryptographic Health</div>
         </div>
       </div>
 
       <!-- Live Block Visualizer -->
-      <div class="card" style="margin-top: 1.5rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
           <div>
-            <h2>⛓️ Live Blockchain Ledger (Immutable Sequence)</h2>
-            <p class="desc" style="margin-bottom: 0;">Each block cryptographically seals transaction history with SHA-256 and Merkle roots.</p>
+            <h2 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              Live Blockchain Ledger
+            </h2>
+            <p class="card-subtitle">Sequential blocks cryptographically chained via SHA-256 and Merkle roots.</p>
           </div>
-          <button class="btn btn-outline" onclick="fetchBlockchainData()">🔄 Refresh Chain</button>
+          <button class="btn btn-secondary" onclick="fetchBlockchainData()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+            <span>Refresh Ledger</span>
+          </button>
         </div>
 
-        <div class="block-chain-container" id="blocksContainer">
-          <!-- Rendered dynamically -->
+        <div class="chain-scroll" id="blocksContainer">
+          <!-- Populated dynamically -->
         </div>
       </div>
 
-      <!-- Tamper Lab (Deliverable 7: Test valid vs invalid transactions and security checks) -->
-      <div class="card" style="margin-top: 1.5rem; border-color: #f59e0b;">
-        <h2 style="color: #fbbf24;">🧪 Tamper Demonstration Lab (Security Verification)</h2>
-        <p class="desc">
-          Test the immutable security of the blockchain! In a centralized database, an unauthorized admin can silently modify records.
-          In this educational lab, you can inject counterfeit data into a block and observe how the cryptographic hash chain immediately detects the corruption.
-        </p>
+      <!-- Tamper Demonstration Lab (Deliverable 7) -->
+      <div class="card" style="border-color: var(--warning-border); background: #fffdfa;">
+        <div class="card-header">
+          <h2 class="card-title" style="color: var(--warning-text);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Tamper Demonstration Lab (Security Verification)
+          </h2>
+          <p class="card-subtitle">
+            Demonstrate why centralized databases fail and how cryptographic immutability protects consumer authenticity.
+            Inject counterfeit data into a block to observe how the ledger immediately detects and reports cryptographic corruption.
+          </p>
+        </div>
 
-        <div class="grid-2" style="margin-top: 1rem;">
+        <div class="grid-2">
           <div class="form-group">
-            <label for="tamperBlockSelect">Select Block to Attack</label>
-            <select id="tamperBlockSelect"></select>
+            <label class="form-label" for="tamperBlockSelect">Select Block to Attack</label>
+            <select id="tamperBlockSelect" class="input-control"></select>
           </div>
           <div class="form-group">
-            <label for="tamperPayloadText">Counterfeit Payload to Inject</label>
-            <input type="text" id="tamperPayloadText" value="FORGED_COUNTERFEIT_PRODUCT_DATA">
+            <label class="form-label" for="tamperPayloadText">Counterfeit Payload to Inject</label>
+            <input type="text" id="tamperPayloadText" class="input-control font-mono" value="COUNTERFEIT_PRODUCT_PAYLOAD_INJECTED">
           </div>
         </div>
 
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem;">
           <button class="btn btn-danger" onclick="executeTamperAttack()">
-            <span>⚠️ Inject Tampered Data (Simulate Fraud)</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Simulate Tamper Attack</span>
           </button>
           <button class="btn btn-success" onclick="executeRestoreChain()">
-            <span>🛡️ Restore Ledger Integrity</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>Restore Ledger Cryptographic Integrity</span>
           </button>
         </div>
 
@@ -401,6 +528,34 @@
     </section>
 
   </main>
+
+  <!-- ====================================================================
+       Smartphone Bottom Navigation Bar
+       ==================================================================== -->
+  <nav class="mobile-bottom-nav">
+    <div class="mobile-nav-items">
+      <button class="mobile-nav-btn active" onclick="switchTab('verify')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span>Verify</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="switchTab('manufacturer')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/></svg>
+        <span>Mint</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="switchTab('supplychain')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="13" x="1" y="5" rx="2"/><polygon points="17 8 20 8 23 11 23 18 17 18 17 8"/></svg>
+        <span>Custody</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="switchTab('ai')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+        <span>AI Risk</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="switchTab('explorer')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <span>Ledger</span>
+      </button>
+    </div>
+  </nav>
 
   <script src="/app.js"></script>
 </body>
